@@ -1,0 +1,24 @@
+{
+  "name": "typedoc-webpack-plugin",
+  "author": "Microsoft Corp.",
+  "homepage": "https://github.com/Microsoft/Typedoc-Webpack-Plugin",
+  "version": "1.0.1",
+  "license": "MIT",
+  "description": "Runs typedoc compilation as a webpack plugin",
+  "keywords": [
+        "Typedoc",
+        "Webpack",
+        "Documentation",
+        "Typescript",
+        "Microsoft"
+    ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Microsoft/Typedoc-Webpack-Plugin.git"
+  },
+  "dependencies": {
+    "lodash": "^4.15.0",
+    "typedoc": "^0.4.4"
+  }
+}
