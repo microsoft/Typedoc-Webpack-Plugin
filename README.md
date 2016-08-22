@@ -17,7 +17,7 @@ plugins: [
 		ignoreCompilerErrors: true,
 		excludeExternals: true,
 		module: 'commonjs',
-		name: 'PBI Style Library API Docs'
+		name: 'Contoso'
 	})
 ]
 ```
