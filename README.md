@@ -10,19 +10,7 @@ var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 ...
 
 plugins: [
-	new TypedocWebpackPlugin({
-		out: './target/docs',
-		target: 'es5',
-		mode: 'file',
-		exclude: '**/node_modules/**/*.*',
-		theme: './typedoc-theme/',
-		includeDeclarations: false,
-		experimentalDecorators: true,
-		ignoreCompilerErrors: true,
-		excludeExternals: true,
-		module: 'commonjs',
-		name: 'Contoso'
-	})
+	new TypedocWebpackPlugin({})
 ]
 ```
 
@@ -41,3 +29,21 @@ The default options that are set by the plugin are:
 	excludeExternals: true
 }
 ```
+
+
+Here is an example of a more expanded configuration:
+
+```
+plugins: [
+	new TypedocWebpackPlugin({
+		name: 'Contoso'
+		mode: 'file',
+		theme: './typedoc-theme/',
+		includeDeclarations: false,
+		ignoreCompilerErrors: true,
+	})
+]
+```
+
+
+		
