@@ -21,7 +21,7 @@ The default options that are set by the plugin are:
 
 ```
 {
-	out: './docs',
+	out: '/docs',
 	module: 'commonjs',
 	target: 'es5',
 	exclude: '**/node_modules/**/*.*',
@@ -45,5 +45,12 @@ plugins: [
 ]
 ```
 
+The output path of the docs is relative to the output path specified in the webpack configuration. For example:
 
-		
+```
+output: {
+	path: './target/',
+}
+```
+
+With the default configuration, the above example would produce the docs under the following path: ./target/docs

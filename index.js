@@ -31,7 +31,7 @@ function TypedocWebpackPlugin(options) {
 	this.startTime = Date.now();
   	this.prevTimestamps = {};
   	this.defaultTypedocOptions = {
-  		out: './docs',
+  		out: '/docs',
   		module: 'commonjs',
 		target: 'es5',
 		exclude: '**/node_modules/**/*.*',
@@ -68,14 +68,22 @@ TypedocWebpackPlugin.prototype.apply = function(compiler) {
 		}
 
 		// if typescript files have been changed or we cannot determine what files have been changed run typedoc build
-		if(tsFileEdited || changedFiles.length === 0) {
-			var typedocApp = new typedoc.Application(self.typeDocOptions);
+		if(tsFileEdited || changedFiles.length === 0) 
+		{
+			// if output path is specified in webpack config,
+			// output typedocs relative to that path
+			var typedocOptions = _.clone(self.typeDocOptions);
+			if(compiler.options.output && compiler.options.output.path) {
+				typedocOptions.out = compiler.options.output.path + self.typeDocOptions.out;
+			}
+
+			var typedocApp = new typedoc.Application(typedocOptions);
 			var src = typedocApp.expandInputFiles(['./']);
 			var project = typedocApp.convert(src);
 
 			if (project) {
 				console.log('Generating updated typedocs');
-				typedocApp.generateDocs(project, self.typeDocOptions.out);
+				typedocApp.generateDocs(project, typedocOptions.out);
 			}
 		}
 		else {
