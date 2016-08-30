@@ -25,7 +25,8 @@
  */
 
 var typedoc = require('typedoc');
-var _ = require('lodash');
+var clone = require('lodash.clone');
+var merge = require('lodash.merge')
 
 function TypedocWebpackPlugin(options) {
 	this.startTime = Date.now();
@@ -40,7 +41,7 @@ function TypedocWebpackPlugin(options) {
   	};
 
   	// merge user options into default options and assign
-  	_.merge(this.defaultTypedocOptions, options);
+  	merge(this.defaultTypedocOptions, options);
   	this.typeDocOptions = this.defaultTypedocOptions;
 }
 
@@ -72,7 +73,7 @@ TypedocWebpackPlugin.prototype.apply = function(compiler) {
 		{
 			// if output path is specified in webpack config,
 			// output typedocs relative to that path
-			var typedocOptions = _.clone(self.typeDocOptions);
+			var typedocOptions = clone(self.typeDocOptions);
 			if(compiler.options.output && compiler.options.output.path) {
 				typedocOptions.out = compiler.options.output.path + self.typeDocOptions.out;
 			}
