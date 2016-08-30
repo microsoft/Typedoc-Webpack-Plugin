@@ -18,7 +18,10 @@
     "url": "https://github.com/Microsoft/Typedoc-Webpack-Plugin.git"
   },
   "dependencies": {
-    "lodash": "^4.15.0",
+    "lodash.clone": "^4.5.0",
+    "lodash.merge": "^4.6.0"
+  },
+  "peerDependencies": {
     "typedoc": "^0.4.4"
   }
 }
