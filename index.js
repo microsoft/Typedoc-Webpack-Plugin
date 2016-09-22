@@ -26,13 +26,14 @@
 
 var typedoc = require('typedoc');
 var clone = require('lodash.clone');
-var merge = require('lodash.merge')
+var merge = require('lodash.merge');
+var path = require('path');
 
 function TypedocWebpackPlugin(options) {
 	this.startTime = Date.now();
   	this.prevTimestamps = {};
   	this.defaultTypedocOptions = {
-  		out: '/docs',
+  		out: './docs',
   		module: 'commonjs',
 		target: 'es5',
 		exclude: '**/node_modules/**/*.*',
@@ -71,11 +72,15 @@ TypedocWebpackPlugin.prototype.apply = function(compiler) {
 		// if typescript files have been changed or we cannot determine what files have been changed run typedoc build
 		if(tsFileEdited || changedFiles.length === 0) 
 		{
-			// if output path is specified in webpack config,
+			// If an absolute path set in self.typeDocOptions.out, use that
+			// else if the output path is specified in webpack config and out is relative
 			// output typedocs relative to that path
 			var typedocOptions = clone(self.typeDocOptions);
-			if(compiler.options.output && compiler.options.output.path) {
-				typedocOptions.out = compiler.options.output.path + self.typeDocOptions.out;
+
+			if(path.isAbsolute(self.typeDocOptions.out)){
+				typedocOptions.out = self.typeDocOptions.out;
+			}else if(compiler.options.output && compiler.options.output.path) {
+				typedocOptions.out = path.join(compiler.options.output.path, self.typeDocOptions.out);
 			}
 
 			var typedocApp = new typedoc.Application(typedocOptions);
@@ -98,6 +103,6 @@ TypedocWebpackPlugin.prototype.apply = function(compiler) {
 	compiler.plugin('done', function (stats) {
 		console.log('Typedoc finished generating');
 	});
-}
+};
 
 module.exports = TypedocWebpackPlugin;
