@@ -4,8 +4,24 @@
 # Typedoc-Webpack-Plugin
 This is a plugin for the Webpack build system that will run Typedoc in order to generate API documentation.
 
-To use, add a require for the module to the Webpack Configuration file, and then place into the plugin section:
+## Installation
 
+Run the following command inside your project directory to install:
+```bash
+npm install typedoc-webpack-plugin --save-dev
+```
+
+__Note:__ Typedoc is required as peer dependency. 
+
+To install Typedoc, run the following command inside your project directory:
+```bash
+npm install typedoc --save-dev
+```
+
+
+## Usage
+
+To use, add a require for the module to the Webpack Configuration file, and then place into the plugin section:
 
 ```
 var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
