@@ -1,3 +1,6 @@
+[![npm version](https://img.shields.io/npm/v/typedoc-webpack-plugin.svg)](https://www.npmjs.com/package/typedoc-webpack-plugin)
+[![Downloads](https://img.shields.io/npm/dm/typedoc-webpack-plugin.svg)](https://www.npmjs.com/package/typedoc-webpack-plugin)
+
 # Typedoc-Webpack-Plugin
 This is a plugin for the Webpack build system that will run Typedoc in order to generate API documentation.
 
