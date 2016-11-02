@@ -29,7 +29,11 @@ var clone = require('lodash.clone');
 var merge = require('lodash.merge');
 var path = require('path');
 
-function TypedocWebpackPlugin(options) {
+function TypedocWebpackPlugin(options, input) {
+	this.inputFiles = ['./'];
+	if (input) {
+		this.inputFiles = (input.constructor === Array) ? input : [input];
+	}
 	this.startTime = Date.now();
   	this.prevTimestamps = {};
   	this.defaultTypedocOptions = {
@@ -84,7 +88,7 @@ TypedocWebpackPlugin.prototype.apply = function(compiler) {
 			}
 
 			var typedocApp = new typedoc.Application(typedocOptions);
-			var src = typedocApp.expandInputFiles(['./']);
+			var src = typedocApp.expandInputFiles(self.inputFiles);
 			var project = typedocApp.convert(src);
 
 			if (project) {
