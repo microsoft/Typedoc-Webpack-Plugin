@@ -75,3 +75,22 @@ output: {
 With the default configuration, the above example would produce the docs under the following path: ./target/docs.
 
 Relative paths can also be specified as the out parameter. For example out: '../docs', would produce the docs under the following path: ./docs.
+
+__Input__
+
+Specifying input for the plugin can be done in multiple ways
+
+Single file or directory: 
+```
+new TypedocWebpackPlugin({}, './src')
+```
+
+Array of files or directories:
+```
+new TypedocWebpackPlugin({}, ['./src', './other'])
+```
+
+Or this parameter can be left blank, in which case all .ts files in project root directory will be used as input
+```
+new TypedocWebpackPlugin({})
+```
