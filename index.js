@@ -37,17 +37,21 @@ function TypedocWebpackPlugin(options, input) {
 	this.startTime = Date.now();
   	this.prevTimestamps = {};
   	this.defaultTypedocOptions = {
-  		out: './docs',
-  		module: 'commonjs',
-		target: 'es5',
-		exclude: '**/node_modules/**/*.*',
-		experimentalDecorators: true,
-		excludeExternals: true
+			module: 'commonjs',
+			target: 'es5',
+			exclude: '**/node_modules/**/*.*',
+			experimentalDecorators: true,
+			excludeExternals: true
   	};
 
   	// merge user options into default options and assign
   	merge(this.defaultTypedocOptions, options);
-  	this.typeDocOptions = this.defaultTypedocOptions;
+		this.typeDocOptions = this.defaultTypedocOptions;
+
+		//only set default output directory if neither out or json properties are set
+		if (!this.typeDocOptions.out && !this.typeDocOptions.json) {
+			this.typeDocOptions.out = "./docs"
+		}
 }
 
 /*
@@ -76,24 +80,41 @@ TypedocWebpackPlugin.prototype.apply = function(compiler) {
 		// if typescript files have been changed or we cannot determine what files have been changed run typedoc build
 		if(tsFileEdited || changedFiles.length === 0) 
 		{
-			// If an absolute path set in self.typeDocOptions.out, use that
-			// else if the output path is specified in webpack config and out is relative
-			// output typedocs relative to that path
+			// If an absolute path set in self.typeDocOptions.out or self.typeDocOptions.json, use that
+			// else if the output path is specified in webpack config and out is relative, output typedocs relative to that path
 			var typedocOptions = clone(self.typeDocOptions);
 
-			if(path.isAbsolute(self.typeDocOptions.out)){
-				typedocOptions.out = self.typeDocOptions.out;
-			}else if(compiler.options.output && compiler.options.output.path) {
-				typedocOptions.out = path.join(compiler.options.output.path, self.typeDocOptions.out);
+			// output can be either json or directory
+			if(self.typeDocOptions.json) {
+				if(path.isAbsolute(self.typeDocOptions.json)) {
+					typedocOptions.json = self.typeDocOptions.json;
+				}
+				else if(compiler.options.output && compiler.options.output.path) {
+					typedocOptions.json = path.join(compiler.options.output.path, self.typeDocOptions.json);
+				}
+			}
+			else {
+				if(path.isAbsolute(self.typeDocOptions.out)) {
+					typedocOptions.out = self.typeDocOptions.out;
+				}
+				else if(compiler.options.output && compiler.options.output.path) {
+					typedocOptions.out = path.join(compiler.options.output.path, self.typeDocOptions.out);
+				}
 			}
 
 			var typedocApp = new typedoc.Application(typedocOptions);
 			var src = typedocApp.expandInputFiles(self.inputFiles);
 			var project = typedocApp.convert(src);
-
+		
 			if (project) {
-				console.log('Generating updated typedocs');
-				typedocApp.generateDocs(project, typedocOptions.out);
+				if(typedocOptions.json) {
+					console.log('Generating typedoc json');
+					typedocApp.generateJson(project, typedocOptions.json);
+				}
+				else {
+					console.log('Generating updated typedocs');
+					typedocApp.generateDocs(project, typedocOptions.out);
+				}
 			}
 		}
 		else {

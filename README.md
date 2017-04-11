@@ -76,6 +76,18 @@ With the default configuration, the above example would produce the docs under t
 
 Relative paths can also be specified as the out parameter. For example out: '../docs', would produce the docs under the following path: ./docs.
 
+Output to a json file is also supported by setting the 'json' property instead of the 'out' property in your configuration. For example:
+
+```
+plugins: [
+	new TypedocWebpackPlugin({
+		name: 'Contoso'
+		mode: 'file',
+		json: './docs.json'
+	})
+]
+```
+
 __Input__
 
 Specifying input for the plugin can be done in multiple ways
