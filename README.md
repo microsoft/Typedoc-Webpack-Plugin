@@ -81,7 +81,7 @@ Output to a json file is also supported by setting the 'json' property instead o
 ```
 plugins: [
 	new TypedocWebpackPlugin({
-		name: 'Contoso'
+		name: 'Contoso',
 		mode: 'file',
 		json: './docs.json'
 	})
