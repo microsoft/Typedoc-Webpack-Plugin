@@ -55,7 +55,7 @@ Here is an example of a more expanded configuration:
 ```
 plugins: [
 	new TypedocWebpackPlugin({
-		name: 'Contoso'
+		name: 'Contoso',
 		mode: 'file',
 		theme: './typedoc-theme/',
 		includeDeclarations: false,
@@ -81,7 +81,7 @@ Output to a json file is also supported by setting the 'json' property instead o
 ```
 plugins: [
 	new TypedocWebpackPlugin({
-		name: 'Contoso'
+		name: 'Contoso',
 		mode: 'file',
 		json: './docs.json'
 	})
