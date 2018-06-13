@@ -12,16 +12,29 @@
     "Typescript",
     "Microsoft"
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "README.md",
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Microsoft/Typedoc-Webpack-Plugin.git"
   },
   "dependencies": {
     "lodash.clone": "^4.5.0",
-    "lodash.merge": "^4.6.0"
+    "lodash.merge": "^4.6.0",
+    "typedoc": "^0.11.1"
   },
-  "peerDependencies": {
-    "typedoc": ">= 0.5.0"
+  "devDependencies": {
+    "@types/lodash.clone": "^4.5.3",
+    "@types/lodash.merge": "^4.6.3",
+    "@types/webpack": "^4.4.0",
+    "typescript": "^2.9.2"
   }
 }
