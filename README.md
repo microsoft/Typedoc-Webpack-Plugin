@@ -24,7 +24,7 @@ npm install typedoc --save-dev
 To use, add a require for the module to the Webpack Configuration file, and then place into the plugin section:
 
 ```
-var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
+var TypedocWebpackPlugin = require('typedoc-webpack-plugin').TypeDocWebpackPlugin;
 
 ...
 
